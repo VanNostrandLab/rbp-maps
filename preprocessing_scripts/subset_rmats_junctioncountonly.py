@@ -487,26 +487,3 @@ if __name__ == "__main__":
         statsfile.close()
         sys.exit(0)
     sys.exit(main())
-
-if __name__ == "__main__":
-    if DEBUG:
-        sys.argv.append("-h")
-        sys.argv.append("-v")
-        sys.argv.append("-r")
-    if TESTRUN:
-        import doctest
-
-        doctest.testmod()
-    if PROFILE:
-        import cProfile
-        import pstats
-
-        profile_filename = 'profile.txt'
-        cProfile.run('main()', profile_filename)
-        statsfile = open("profile_stats.txt", "wb")
-        p = pstats.Stats(profile_filename, stream=statsfile)
-        stats = p.strip_dirs().sort_stats('cumulative')
-        stats.print_stats()
-        statsfile.close()
-        sys.exit(0)
-    sys.exit(main())
