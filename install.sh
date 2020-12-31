@@ -9,4 +9,4 @@ conda install -y -p ./env -c bioconda ucsc-bedtobigbed
 ./env/bin/pip install cwlref-runner --prefix ./env;
 ./env/bin/pip install . --prefix ./env;
 
-./env/bin/plot_map
+./env/bin/plot_map -h
