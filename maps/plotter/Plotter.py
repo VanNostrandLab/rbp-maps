@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import defaultdict
 import numpy as np
-from plotter import colors
+from plotter import colors, intervals
 
 sns.set_style("ticks")
 sns.set_context("talk", font_scale=1.4)
@@ -28,8 +28,6 @@ BG4_COLOR = COLOR_PALETTE[4]
 BG5_COLOR = COLOR_PALETTE[2]
 POS_COLOR = COLOR_PALETTE[0]
 NEG_COLOR = COLOR_PALETTE[5]
-
-import intervals
 
 
 class _Plotter():
