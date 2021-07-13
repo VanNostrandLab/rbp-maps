@@ -33,14 +33,11 @@ import matplotlib.pyplot as plt
 import gzip
 from collections import defaultdict, OrderedDict
 from plotter import Plotter
-import matrix as mtx
-import misc
-import normalization_functions as norm
-import LineObject
-import Peak
-import ReadDensity
+from density import misc, LineObject, Peak, ReadDensity, Feature
+from density import matrix as mtx
+from density import normalization_functions as norm
+
 import pandas as pd
-import Feature
 from tqdm import trange
 import numpy as np
 
@@ -694,7 +691,7 @@ class SkippedExon(WithInput):
         matrices = defaultdict(dict)
         num_events = defaultdict(dict)
 
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['ip'][filename] = mtx.skipped_exon(
                 annotation=filename, density=self.ip,
                 exon_offset=self.exon_offset, intron_offset=self.intron_offset,
@@ -769,7 +766,7 @@ class MutuallyExclusiveExon(WithInput):
         """
         matrices = defaultdict(dict)
         num_events = defaultdict(dict)
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['ip'][filename] = mtx.mutually_exc_exon(
                 annotation=filename, density=self.ip,
                 exon_offset=self.exon_offset, intron_offset=self.intron_offset,
@@ -841,7 +838,7 @@ class Alt3PSpliceSite(WithInput):
         matrices = defaultdict(dict)
         num_events = defaultdict(dict)
 
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['ip'][filename] = mtx.alt_3p_splice_site(
                 annotation=filename, density=self.ip,
                 exon_offset=self.exon_offset, intron_offset=self.intron_offset,
@@ -907,7 +904,7 @@ class Alt5PSpliceSite(WithInput):
         matrices = defaultdict(dict)
         num_events = defaultdict(dict)
 
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['ip'][filename] = mtx.alt_5p_splice_site(
                 annotation=filename, density=self.ip,
                 exon_offset=self.exon_offset, intron_offset=self.intron_offset,
@@ -971,7 +968,7 @@ class RetainedIntron(WithInput):
         """
         matrices = defaultdict(dict)
         num_events = defaultdict(dict)
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['ip'][filename] = mtx.retained_intron(
                 annotation=filename, density=self.ip,
                 exon_offset=self.exon_offset, intron_offset=self.intron_offset,
@@ -1029,7 +1026,7 @@ class Metagene(WithInput):
         matrices = defaultdict()
         num_events = defaultdict()
 
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             if filetype == '3utr' or filetype == 'utr3':
                 matrices["three_prime_utr_ip"] = mtx.meta(
                     annotation=filename, density=self.ip,
@@ -1172,7 +1169,7 @@ class CDS(WithInput):
         this RBP intersected with the events described by condition1.rmats
         """
         matrices = defaultdict(dict)
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['ip'][filename] = mtx.meta(
                 annotation=filename, density=self.ip,
                 upstream_offset=self.upstream_offset,
@@ -1231,7 +1228,7 @@ class PhastconMap(Map):
         matrices = defaultdict(dict)
         num_events = defaultdict(dict)
 
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             matrices['phastcon'][filename] = mtx.meta(
                 annotation=filename, density=self.ip,
                 upstream_offset=self.upstream_offset,
@@ -1258,7 +1255,7 @@ class PhastconMap(Map):
         num_events = defaultdict(dict)
         ct = 0
 
-        for filename, filetype in self.annotation.iteritems():
+        for filename, filetype in self.annotation.items():
             if filename == self.masked_file:
                 matrices['phastcon'][filename] = mtx.phastcon_region(
                     annotation=filename, density=self.ip,
@@ -1298,7 +1295,7 @@ class PhastconMap(Map):
         """
 
         c = 0  # plotter for iterating over default COLOR scheme
-        for filename, _ in self.annotation.iteritems():
+        for filename, _ in self.annotation.items():
             self.lines.append(
                 LineObject.create_line(
                     event_matrix=self.raw_matrices['phastcon'][filename],
