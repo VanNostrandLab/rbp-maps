@@ -774,7 +774,7 @@ def generic_site(rbp, interval, upstream_offset=0, downstream_offset=0, fill_pad
             interval.strand
         )
     else:
-        print "Strand not correct", interval.strand
+        print("Strand not correct", interval.strand)
         raise ()
     return _clean_and_add_padding(wiggle, 0, 0, fill_pads_with)
 
